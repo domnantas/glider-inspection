@@ -1,0 +1,32 @@
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = "native"
+}
+
+model Glider {
+  id          String       @id @default(uuid())
+  model       String       @unique
+  steps       Step[]
+  inspections Inspection[]
+}
+
+model Step {
+  id          String @id @default(uuid())
+  action      String
+  description String
+  glider      Glider @relation(fields: [gliderId], references: [id])
+  gliderId    String
+}
+
+model Inspection {
+  id          String   @id @default(uuid())
+  date        DateTime
+  glider      Glider   @relation(fields: [gliderId], references: [id])
+  gliderId    String
+  completedBy String
+}
