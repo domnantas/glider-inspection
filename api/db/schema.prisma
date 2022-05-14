@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgres"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -9,24 +9,34 @@ generator client {
 }
 
 model Glider {
-  id          String       @id @default(uuid())
-  model       String       @unique
-  steps       Step[]
-  inspections Inspection[]
+  id           Int          @id @default(autoincrement())
+  gliderType   GliderType   @relation(fields: [gliderTypeId], references: [id])
+  gliderTypeId Int
+  inspections  Inspection[]
+  Step         Step[]
+}
+
+model GliderType {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  steps  Step[]
+  Glider Glider[]
 }
 
 model Step {
-  id          String @id @default(uuid())
-  action      String
-  description String
-  glider      Glider @relation(fields: [gliderId], references: [id])
-  gliderId    String
+  id           Int         @id @default(autoincrement())
+  action       String
+  description  String
+  glider       Glider      @relation(fields: [gliderId], references: [id])
+  gliderId     Int
+  GliderType   GliderType? @relation(fields: [gliderTypeId], references: [id])
+  gliderTypeId Int
 }
 
 model Inspection {
-  id          String   @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   date        DateTime
   glider      Glider   @relation(fields: [gliderId], references: [id])
-  gliderId    String
+  gliderId    Int
   completedBy String
 }
