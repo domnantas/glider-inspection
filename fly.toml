@@ -1,4 +1,4 @@
-# fly.toml file generated for glider-inspection on 2022-05-13T02:39:44+03:00
+# fly.toml file generated for glider-inspection on 2022-05-14T11:04:37+03:00
 
 app = "glider-inspection"
 
@@ -10,12 +10,18 @@ processes = []
   release_command = ".fly/release.sh"
 
 [env]
+  DATABASE_URL = "file://data/sqlite.db"
+  MIGRATE_ON_BOOT = "true"
   PORT = "8910"
   REDWOOD_DISABLE_TELEMETRY = "1"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
+
+[[mounts]]
+  destination = "/data"
+  source = "data"
 
 [[services]]
   http_checks = []
