@@ -35,7 +35,7 @@ model Step {
 
 model Inspection {
   id          Int      @id @default(autoincrement())
-  date        DateTime
+  date        DateTime @default(now())
   glider      Glider   @relation(fields: [gliderId], references: [id])
   gliderId    Int
   completedBy String
