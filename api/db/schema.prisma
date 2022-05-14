@@ -12,25 +12,21 @@ model Glider {
   id           Int          @id @default(autoincrement())
   gliderType   GliderType   @relation(fields: [gliderTypeId], references: [id])
   gliderTypeId Int
-  registration String
+  callsign     String
   inspections  Inspection[]
-  steps        Step[]
 }
 
 model GliderType {
-  id      Int      @id @default(autoincrement())
-  name    String   @unique
-  steps   Step[]
-  gliders Glider[]
+  id              Int      @id @default(autoincrement())
+  name            String   @unique
+  gliders         Glider[]
+  inspectionSteps Step[]
 }
 
 model Step {
-  id           Int         @id @default(autoincrement())
-  action       String
+  id           Int        @id @default(autoincrement())
   description  String
-  glider       Glider      @relation(fields: [gliderId], references: [id])
-  gliderId     Int
-  GliderType   GliderType? @relation(fields: [gliderTypeId], references: [id])
+  gliderType   GliderType @relation(fields: [gliderTypeId], references: [id])
   gliderTypeId Int
 }
 
