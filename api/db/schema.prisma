@@ -12,6 +12,7 @@ model Glider {
   id           Int          @id @default(autoincrement())
   gliderType   GliderType   @relation(fields: [gliderTypeId], references: [id])
   gliderTypeId Int
+  registration String
   inspections  Inspection[]
   steps        Step[]
 }
