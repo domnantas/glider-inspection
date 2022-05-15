@@ -16,6 +16,10 @@ import GlidersLayout from 'src/layouts/GlidersLayout'
 const Routes = () => {
   return (
     <Router>
+      <Route path="/login" page={LoginPage} name="login" />
+      <Route path="/signup" page={SignupPage} name="signup" />
+      <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
+      <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
       <Set wrap={InspectionsLayout}>
         <Route path="/inspections/new" page={InspectionNewInspectionPage} name="newInspection" />
         <Route path="/inspections/{id:Int}/edit" page={InspectionEditInspectionPage} name="editInspection" />

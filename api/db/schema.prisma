@@ -8,6 +8,15 @@ generator client {
   binaryTargets = "native"
 }
 
+model User {
+  id                  Int       @id @default(autoincrement())
+  email               String    @unique
+  hashedPassword      String
+  salt                String
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+}
+
 model Glider {
   id           Int          @id @default(autoincrement())
   gliderType   GliderType   @relation(fields: [gliderTypeId], references: [id])
